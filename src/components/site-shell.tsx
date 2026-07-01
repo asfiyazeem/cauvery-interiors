@@ -114,6 +114,14 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         </div>
       </footer>
 
+      <button
+        type="button"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className="fixed bottom-6 left-6 z-50 rounded-full border border-[#8d6b4e]/40 bg-[#f7efe4] px-4 py-3 text-sm font-semibold text-[#4d3920] shadow-2xl"
+      >
+        ↑ Top
+      </button>
+
       <motion.a
         href="https://wa.me/919880000000"
         whileHover={{ y: -3, scale: 1.02 }}

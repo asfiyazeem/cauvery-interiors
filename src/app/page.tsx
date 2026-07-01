@@ -52,16 +52,41 @@ const whyChooseUs = [
 ];
 
 const services = [
-  { title: "Modular Kitchens", description: "Tailored culinary spaces with premium finishes and intelligent storage.", href: "/services/modular-kitchens", image: "/assets/images/service-kitchen.svg" },
-  { title: "Wardrobes", description: "Seamless wardrobes that combine elegance, utility, and bespoke detailing.", href: "/services/wardrobes", image: "/assets/images/service-wardrobe.svg" },
-  { title: "CNC Jaali & Carving", description: "Sculptural walls, screens, and decorative panels crafted with precision CNC work.", href: "/services/cnc", image: "/assets/images/service-cnc.svg" },
-  { title: "False Ceilings & Cladding", description: "Architectural treatments that add depth, warmth, and character to interiors.", href: "/services/ceilings", image: "/assets/images/service-cladding.svg" },
+  { title: "Modular Kitchens", description: "Tailored culinary spaces with premium finishes and intelligent storage.", href: "/services/modular-kitchens", image: "/images/modular-kitchen-1.jpg.jpg" },
+  { title: "Wardrobes", description: "Seamless wardrobes that combine elegance, utility, and bespoke detailing.", href: "/services/wardrobes", image: "/images/wardrobes/wardrobe-1.jpg" },
+  { title: "CNC Jaali & Carving", description: "Sculptural walls, screens, and decorative panels crafted with precision CNC work.", href: "/services/cnc", image: "/images/cnc%20jali%20carving/cnc%20jali-1.jpg" },
+  { title: "False Ceilings & Cladding", description: "Architectural treatments that add depth, warmth, and character to interiors.", href: "/services/ceilings", image: "/images/false%20ceiling/ceiling-1.jpg" },
 ];
 
 const projectCategories = ["All", "Kitchens", "Wardrobes", "CNC", "Interiors"] as const;
 
 const projects = [
-  { title: "Timber Serenity Kitchen", category: "Kitchens", image: "/assets/images/project-kitchen.svg" },
+  {
+    title: "Timber Serenity Kitchen",
+    category: "Kitchens",
+    image: "/images/TIMBER%20KITCHEN/tim-1.jpg",
+    gallery: [
+      "/images/TIMBER%20KITCHEN/tim-1.jpg",
+      "/images/TIMBER%20KITCHEN/tim-2.jpg",
+      "/images/TIMBER%20KITCHEN/tim-3.jpg",
+      "/images/TIMBER%20KITCHEN/tim-4.jpg",
+      "/images/TIMBER%20KITCHEN/tim-5.jpg",
+      "/images/TIMBER%20KITCHEN/tim-6.jpg",
+      "/images/TIMBER%20KITCHEN/tim-7.jpg",
+      "/images/TIMBER%20KITCHEN/tim-8.jpg",
+      "/images/TIMBER%20KITCHEN/tim-9.jpg",
+      "/images/TIMBER%20KITCHEN/tim-10.jpg",
+      "/images/TIMBER%20KITCHEN/tim-11.jpg",
+      "/images/TIMBER%20KITCHEN/tim-12.jpg",
+      "/images/TIMBER%20KITCHEN/tim-13.jpg",
+      "/images/TIMBER%20KITCHEN/tim-14.jpg",
+      "/images/TIMBER%20KITCHEN/tim-15.jpg",
+      "/images/TIMBER%20KITCHEN/tim-16.jpg",
+      "/images/TIMBER%20KITCHEN/tim-17.jpg",
+      "/images/TIMBER%20KITCHEN/tim-18.jpg",
+      "/images/TIMBER%20KITCHEN/tim-19.jpg",
+    ],
+  },
   { title: "Walk-in Wardrobe Suite", category: "Wardrobes", image: "/assets/images/project-wardrobe.svg" },
   { title: "CNC Jaali Feature Wall", category: "CNC", image: "/assets/images/project-cnc.svg" },
   { title: "Banaswadi Residence", category: "Interiors", image: "/assets/images/project-interior.svg" },
@@ -233,9 +258,19 @@ export default function Home() {
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {filteredProjects.map((project) => (
             <motion.div key={project.title} whileHover={{ y: -6, scale: 1.01 }} className="overflow-hidden rounded-[1.5rem] border border-[#cdb59a]/30 bg-[#f7efe4] shadow-sm">
-              <div className="relative aspect-[4/5]">
-                <Image src={project.image} alt={project.title} fill className="object-cover" />
-              </div>
+              {project.gallery ? (
+                <div className="grid grid-cols-2 gap-1">
+                  {project.gallery.map((image, index) => (
+                    <div key={`${project.title}-${index}`} className="relative aspect-square">
+                      <Image src={image} alt={`${project.title} gallery ${index + 1}`} fill className="object-cover" />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="relative aspect-[4/5]">
+                  <Image src={project.image} alt={project.title} fill className="object-cover" />
+                </div>
+              )}
               <div className="p-5">
                 <p className="text-sm uppercase tracking-[0.3em] text-[#8d6b4e]">{project.category}</p>
                 <h3 className="mt-2 text-xl font-semibold text-[#2f2a22]">{project.title}</h3>
