@@ -27,12 +27,24 @@ const services = {
 };
 
 const modularKitchenSlides = [
-  "/images/modular-kitchen-1.jpg.jpg",
-  "/images/modular-kitchen-2.jpg.jpg",
-  "/images/modular-kitchen-3.jpg.jpg",
-  "/images/modular-kitchen-4.jpg.jpg",
-  "/images/modular-kitchen-5.jpg.jpg",
-  "/images/modular-kitchen-6.jpg.jpg",
+  "/images/kitchen/modular-kitchen-1.jpg.jpg",
+  "/images/kitchen/modular-kitchen-2.jpg.jpg",
+  "/images/kitchen/modular-kitchen-3.jpg.jpg",
+  "/images/kitchen/modular-kitchen-4.jpg.jpg",
+  "/images/kitchen/modular-kitchen-5.jpg.jpg",
+  "/images/kitchen/modular-kitchen-6.jpg.jpg",
+  "/images/kitchen/modular-kitchen-7.jpg.jpg",
+  "/images/kitchen/modular-kitchen-8.jpg.jpg",
+  "/images/kitchen/modular-kitchen-9.jpg.jpg",
+  "/images/kitchen/modular-kitchen-10.jpg.jpg",
+  "/images/kitchen/modular-kitchen-11.jpg.jpg",
+  "/images/kitchen/modular-kitchen-12.jpg.jpg",
+  "/images/kitchen/modular-kitchen-13.jpg.jpg",
+  "/images/kitchen/modular-kitchen-14.jpg.jpg",
+  "/images/kitchen/modular-kitchen-15.jpg.jpg",
+  "/images/kitchen/modular-kitchen-16.jpg.jpg",
+  "/images/kitchen/modular-kitchen-17.jpg.jpg",
+  "/images/kitchen/modular-kitchen-18.jpg.jpg",
 ];
 
 const wardrobeSlides = [

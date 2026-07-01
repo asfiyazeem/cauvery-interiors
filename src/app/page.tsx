@@ -52,7 +52,7 @@ const whyChooseUs = [
 ];
 
 const services = [
-  { title: "Modular Kitchens", description: "Tailored culinary spaces with premium finishes and intelligent storage.", href: "/services/modular-kitchens", image: "/images/modular-kitchen-1.jpg.jpg" },
+  { title: "Modular Kitchens", description: "Tailored culinary spaces with premium finishes and intelligent storage.", href: "/services/modular-kitchens", image: "/images/kitchen/modular-kitchen-1.jpg.jpg" },
   { title: "Wardrobes", description: "Seamless wardrobes that combine elegance, utility, and bespoke detailing.", href: "/services/wardrobes", image: "/images/wardrobes/wardrobe-1.jpg" },
   { title: "CNC Jaali & Carving", description: "Sculptural walls, screens, and decorative panels crafted with precision CNC work.", href: "/services/cnc", image: "/images/cnc%20jali%20carving/cnc%20jali-1.jpg" },
   { title: "False Ceilings & Cladding", description: "Architectural treatments that add depth, warmth, and character to interiors.", href: "/services/ceilings", image: "/images/false%20ceiling/ceiling-1.jpg" },
