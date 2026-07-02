@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { SiteShell } from "@/components/site-shell";
 
 const heroSlides = [
@@ -52,10 +52,46 @@ const whyChooseUs = [
 ];
 
 const services = [
-  { title: "Modular Kitchens", description: "Tailored culinary spaces with premium finishes and intelligent storage.", href: "/services/modular-kitchens", image: "/images/kitchen/modular-kitchen-1.jpg.jpg" },
-  { title: "Wardrobes", description: "Seamless wardrobes that combine elegance, utility, and bespoke detailing.", href: "/services/wardrobes", image: "/images/wardrobes/wardrobe-1.jpg" },
-  { title: "CNC Jaali & Carving", description: "Sculptural walls, screens, and decorative panels crafted with precision CNC work.", href: "/services/cnc", image: "/images/cnc%20jali%20carving/cnc%20jali-1.jpg" },
-  { title: "False Ceilings & Cladding", description: "Architectural treatments that add depth, warmth, and character to interiors.", href: "/services/ceilings", image: "/images/false%20ceiling/ceiling-1.jpg" },
+  {
+    title: "Modular Kitchens",
+    description: "Tailored culinary spaces with premium finishes and intelligent storage.",
+    href: "/services/modular-kitchens",
+    previewSlides: [
+      "/images/kitchen/modular-kitchen-1.jpg.jpg",
+      "/images/kitchen/modular-kitchen-2.jpg.jpg",
+      "/images/kitchen/modular-kitchen-3.jpg.jpg",
+    ],
+  },
+  {
+    title: "Wardrobes",
+    description: "Seamless wardrobes that combine elegance, utility, and bespoke detailing.",
+    href: "/services/wardrobes",
+    previewSlides: [
+      "/images/wardrobes/wardrobe-1.jpg",
+      "/images/wardrobes/wardrobe-2.jpg",
+      "/images/wardrobes/wardrobe-3.jpg",
+    ],
+  },
+  {
+    title: "CNC Jaali & Carving",
+    description: "Sculptural walls, screens, and decorative panels crafted with precision CNC work.",
+    href: "/services/cnc",
+    previewSlides: [
+      "/images/cnc%20jali%20carving/cnc%20jali-1.jpg",
+      "/images/cnc%20jali%20carving/cnc%20jali-2.jpg",
+      "/images/cnc%20jali%20carving/cnc%20jali-3.jpg",
+    ],
+  },
+  {
+    title: "False Ceilings & Cladding",
+    description: "Architectural treatments that add depth, warmth, and character to interiors.",
+    href: "/services/ceilings",
+    previewSlides: [
+      "/images/false%20ceiling/ceiling-1.jpg",
+      "/images/false%20ceiling/ceiling-2.jpg",
+      "/images/false%20ceiling/ceiling-3.jpg",
+    ],
+  },
 ];
 
 const projectCategories = ["All", "Kitchens", "Wardrobes", "CNC", "Interiors"] as const;
@@ -89,7 +125,6 @@ const projects = [
   },
   { title: "Walk-in Wardrobe Suite", category: "Wardrobes", image: "/assets/images/project-wardrobe.svg" },
   { title: "CNC Jaali Feature Wall", category: "CNC", image: "/assets/images/project-cnc.svg" },
-  { title: "Banaswadi Residence", category: "Interiors", image: "/assets/images/project-interior.svg" },
 ];
 
 const testimonials = [
@@ -102,15 +137,78 @@ const testimonials = [
 const faqs = [
   { question: "Do you handle full-home interiors or only select rooms?", answer: "We design complete residential and commercial interiors, including kitchens, wardrobes, living rooms, offices, and custom furniture." },
   { question: "Can you help with material selection and budgeting?", answer: "Yes. We guide you through premium materials, finishes, and practical budget planning to create a balanced concept." },
-  { question: "Do you provide installation and aftercare?", answer: "We manage professional installation and support your project through completion with a strong focus on quality." },
+  { question: "Do you provide installation?", answer: "We manage professional installation with a strong focus on quality." },
 ];
 
 const galleryImages = [
   { title: "Timber Yard", image: "/assets/images/gallery-timber.svg" },
-  { title: "Plywood Gallery", image: "/assets/images/gallery-plywood.svg" },
-  { title: "Showroom Experience", image: "/assets/images/gallery-showroom.svg" },
-  { title: "Completed Interiors", image: "/assets/images/gallery-interiors.svg" },
 ];
+
+function ServiceCard({ title, description, href, previewSlides }: { title: string; description: string; href: string; previewSlides: string[] }) {
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (!cardRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting && entry.intersectionRatio > 0.35);
+      },
+      { threshold: [0.35] },
+    );
+
+    observer.observe(cardRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    const interval = window.setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % previewSlides.length);
+    }, 4000);
+    return () => window.clearInterval(interval);
+  }, [isVisible, previewSlides.length]);
+
+  return (
+    <Link href={href} className="group overflow-hidden rounded-[1.75rem] border border-[#cdb59a]/30 bg-[#f7efe4] shadow-sm transition hover:-translate-y-1">
+      <div ref={cardRef} className="relative aspect-[16/10] overflow-hidden rounded-[1.75rem] bg-[#e8dfd2]">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`${title}-${activeIndex}`}
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -18 }}
+            transition={{ duration: 0.45 }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={previewSlides[activeIndex]}
+              alt={`${title} preview ${activeIndex + 1}`}
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 33vw, 100vw"
+            />
+          </motion.div>
+        </AnimatePresence>
+        <div className="absolute bottom-4 left-4 flex gap-2">
+          {previewSlides.map((_, index) => (
+            <span
+              key={index}
+              className={`h-1.5 w-6 rounded-full transition ${index === activeIndex ? "bg-[#8d6b4e]" : "bg-white/40"}`}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="p-7">
+        <p className="text-sm uppercase tracking-[0.35em] text-[#8d6b4e]">Interior Solution</p>
+        <h3 className="mt-4 text-2xl font-semibold text-[#2f2a22]">{title}</h3>
+        <p className="mt-3 text-[#675b50]">{description}</p>
+        <span className="mt-6 inline-flex text-sm font-medium text-[#8d6b4e] group-hover:translate-x-1 transition">Explore service →</span>
+      </div>
+    </Link>
+  );
+}
 
 export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -119,6 +217,8 @@ export default function Home() {
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [formState, setFormState] = useState({ name: "", phone: "", email: "", project: "" });
   const [submitted, setSubmitted] = useState(false);
+  const heroSectionRef = useRef<HTMLElement | null>(null);
+  const scrollTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     const timer = window.setInterval(() => setActiveSlide((prev) => (prev + 1) % heroSlides.length), 5000);
@@ -128,6 +228,54 @@ export default function Home() {
   useEffect(() => {
     const timer = window.setInterval(() => setActiveReview((prev) => (prev + 1) % testimonials.length), 6000);
     return () => window.clearInterval(timer);
+  }, []);
+
+  const nextSlide = () => setActiveSlide((prev) => (prev + 1) % heroSlides.length);
+  const prevSlide = () => setActiveSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+
+  useEffect(() => {
+    const updateScrollSlide = () => {
+      if (!heroSectionRef.current) return;
+      const heroRect = heroSectionRef.current.getBoundingClientRect();
+      if (heroRect.bottom <= 0) {
+        setActiveSlide(heroSlides.length - 1);
+        return;
+      }
+      if (heroRect.top >= window.innerHeight) {
+        setActiveSlide(0);
+        return;
+      }
+
+      const progress = Math.min(1, Math.max(0, -heroRect.top / heroRect.height));
+      const slideIndex = Math.floor(progress * heroSlides.length);
+      setActiveSlide(Math.min(heroSlides.length - 1, Math.max(0, slideIndex)));
+    };
+
+    const onWheel = (event: WheelEvent) => {
+      if (!heroSectionRef.current) return;
+      const heroRect = heroSectionRef.current.getBoundingClientRect();
+      if (heroRect.top > window.innerHeight || heroRect.bottom < 0) return;
+      if (scrollTimeoutRef.current !== null) return;
+
+      if (event.deltaY > 20) {
+        nextSlide();
+      } else if (event.deltaY < -20) {
+        prevSlide();
+      }
+
+      scrollTimeoutRef.current = window.setTimeout(() => {
+        scrollTimeoutRef.current = null;
+      }, 300);
+    };
+
+    window.addEventListener("scroll", updateScrollSlide, { passive: true });
+    window.addEventListener("wheel", onWheel, { passive: true });
+    updateScrollSlide();
+    return () => {
+      window.removeEventListener("scroll", updateScrollSlide);
+      window.removeEventListener("wheel", onWheel);
+      if (scrollTimeoutRef.current !== null) window.clearTimeout(scrollTimeoutRef.current);
+    };
   }, []);
 
   const filteredProjects = useMemo(() => {
@@ -145,7 +293,7 @@ export default function Home() {
 
   return (
     <SiteShell>
-      <section id="home" className="scroll-mt-28 relative isolate overflow-hidden bg-[linear-gradient(120deg,_#f8f2ea_0%,_#f2e9dc_35%,_#e7dbc8_100%)]">
+      <section ref={heroSectionRef} id="home" className="scroll-mt-28 relative isolate overflow-hidden bg-[linear-gradient(120deg,_#f8f2ea_0%,_#f2e9dc_35%,_#e7dbc8_100%)]">
         <div className="mx-auto grid min-h-[92vh] max-w-7xl items-center gap-10 px-6 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="relative z-10 max-w-2xl">
             <p className="mb-5 text-sm uppercase tracking-[0.4em] text-[#8d6b4e]">Premium interiors • Bangalore</p>
@@ -168,7 +316,25 @@ export default function Home() {
 
           <motion.div initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }} className="relative z-10 overflow-hidden rounded-[2rem] border border-[#cdb59a]/40 bg-white/70 p-3 shadow-[0_30px_90px_rgba(94,73,46,0.15)]">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem]">
-              <Image src={heroSlides[activeSlide].image} alt={heroSlides[activeSlide].title} fill className="object-cover" priority />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeSlide}
+                  initial={{ opacity: 0, x: 24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -24 }}
+                  transition={{ duration: 0.5 }}
+                  className="absolute inset-0"
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.15}
+                  onDragEnd={(_, info) => {
+                    if (info.offset.x < -50) nextSlide();
+                    if (info.offset.x > 50) prevSlide();
+                  }}
+                >
+                  <Image src={heroSlides[activeSlide].image} alt={heroSlides[activeSlide].title} fill className="object-cover" priority />
+                </motion.div>
+              </AnimatePresence>
               <div className="absolute inset-0 bg-gradient-to-t from-[#231d17]/80 via-transparent to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
                 <p className="text-xs uppercase tracking-[0.4em] text-[#e8d5bb]">{heroSlides[activeSlide].subtitle}</p>
@@ -226,17 +392,7 @@ export default function Home() {
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           {services.map((service) => (
-            <Link key={service.title} href={service.href} className="group overflow-hidden rounded-[1.75rem] border border-[#cdb59a]/30 bg-[#f7efe4] shadow-sm transition hover:-translate-y-1">
-              <div className="relative aspect-[16/10]">
-                <Image src={service.image} alt={service.title} fill className="object-cover" />
-              </div>
-              <div className="p-7">
-                <p className="text-sm uppercase tracking-[0.35em] text-[#8d6b4e]">Interior Solution</p>
-                <h3 className="mt-4 text-2xl font-semibold text-[#2f2a22]">{service.title}</h3>
-                <p className="mt-3 text-[#675b50]">{service.description}</p>
-                <span className="mt-6 inline-flex text-sm font-medium text-[#8d6b4e] transition group-hover:translate-x-1">Explore service →</span>
-              </div>
-            </Link>
+            <ServiceCard key={service.title} title={service.title} description={service.description} href={service.href} previewSlides={service.previewSlides} />
           ))}
         </div>
       </section>
