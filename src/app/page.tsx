@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SiteShell } from "@/components/site-shell";
+import Homepage from "@/components/homepage";
 
 const heroSlides = [
   {
@@ -304,95 +305,9 @@ export default function Home() {
 
   return (
     <SiteShell>
-      <section ref={heroSectionRef} id="home" className="scroll-mt-28 relative isolate overflow-hidden bg-[linear-gradient(120deg,_#f8f2ea_0%,_#f2e9dc_35%,_#e7dbc8_100%)]">
-        <div className="mx-auto grid min-h-[92vh] max-w-7xl items-center gap-10 px-6 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="relative z-10 max-w-2xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.4em] text-[#8d6b4e]">Premium interiors • Bangalore</p>
-            <h1 className="text-4xl font-semibold leading-tight text-[#2f2a22] sm:text-6xl">
-              Designing homes and workspaces with sculptural luxury.
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-[#675b50]">
-              Cauvery Interior Studio blends timeless craftsmanship, premium materials, and warm modern design to create interiors that feel effortless and elevated.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link href="/consultation" className="rounded-full bg-[#8d6b4e] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90">Book a Consultation</Link>
-              <Link href="#projects" className="rounded-full border border-[#8d6b4e]/30 bg-white/80 px-6 py-3 text-sm font-semibold text-[#4d3920] transition hover:border-[#8d6b4e]">View Portfolio</Link>
-            </div>
-            <div className="mt-8 flex flex-wrap gap-3 text-sm text-[#6b5d50]">
-              <span className="rounded-full border border-[#cdb59a]/40 bg-[#f7efe4] px-3 py-2">Modular Kitchens</span>
-              <span className="rounded-full border border-[#cdb59a]/40 bg-[#f7efe4] px-3 py-2">Wardrobes</span>
-              <span className="rounded-full border border-[#cdb59a]/40 bg-[#f7efe4] px-3 py-2">CNC Jaali</span>
-            </div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }} className="relative z-10 overflow-hidden rounded-[2rem] border border-[#cdb59a]/40 bg-white/70 p-3 shadow-[0_30px_90px_rgba(94,73,46,0.15)]">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem]">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeSlide}
-                  initial={{ opacity: 0, x: 24 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -24 }}
-                  transition={{ duration: 0.5 }}
-                  className="absolute inset-0"
-                  drag="x"
-                  dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0.15}
-                  onDragEnd={(_, info) => {
-                    if (info.offset.x < -50) nextSlide();
-                    if (info.offset.x > 50) prevSlide();
-                  }}
-                >
-                  <Image src={heroSlides[activeSlide].image} alt={heroSlides[activeSlide].title} fill className="object-cover" priority />
-                </motion.div>
-              </AnimatePresence>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#231d17]/80 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
-                <p className="text-xs uppercase tracking-[0.4em] text-[#e8d5bb]">{heroSlides[activeSlide].subtitle}</p>
-                <h2 className="mt-2 text-3xl font-semibold">{heroSlides[activeSlide].title}</h2>
-                <p className="mt-3 max-w-md text-sm leading-7 text-[#f5ebdd]">{heroSlides[activeSlide].description}</p>
-                <Link href={heroSlides[activeSlide].href} className="mt-5 inline-flex rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur-sm">{heroSlides[activeSlide].cta}</Link>
-              </div>
-            </div>
-            <div className="mt-4 flex justify-center gap-2">
-              {heroSlides.map((slide, index) => (
-                <button key={slide.title} onClick={() => setActiveSlide(index)} className={`h-2 rounded-full transition ${activeSlide === index ? "w-8 bg-[#8d6b4e]" : "w-2 bg-[#cdb59a]/60"}`} aria-label={`Go to slide ${index + 1}`} />
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="border-y border-[#cdb59a]/30 bg-[#f7efe4] py-16">
-        <div className="mx-auto grid max-w-7xl gap-6 px-6 text-center sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
-          {stats.map((stat) => (
-            <div key={stat.label} className="rounded-2xl border border-[#cdb59a]/30 bg-[#f5efe6] p-6 shadow-sm">
-              <p className="text-3xl font-semibold text-[#8d6b4e]">{stat.value}</p>
-              <p className="mt-2 text-sm uppercase tracking-[0.3em] text-[#86766a]">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="about" className="scroll-mt-28 mx-auto max-w-7xl px-6 py-20 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-          <div>
-            <p className="text-sm uppercase tracking-[0.4em] text-[#8d6b4e]">Why Choose Us</p>
-            <h2 className="mt-4 text-3xl font-semibold text-[#2f2a22] sm:text-4xl">Craftsmanship that elevates everyday living.</h2>
-            <p className="mt-5 text-lg leading-8 text-[#675b50]">
-              Every detail is shaped with premium materials, refined proportions, and modern craftsmanship so your space feels timeless from day one.
-            </p>
-            <Link href="/consultation" className="mt-7 inline-flex rounded-full bg-[#2f2a22] px-6 py-3 text-sm font-semibold text-[#f8efe5]">Schedule a Walkthrough</Link>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {whyChooseUs.map((item) => (
-              <div key={item} className="rounded-2xl border border-[#cdb59a]/30 bg-[#f7efe4] p-5 text-[#4f433c] shadow-sm transition hover:-translate-y-1">
-                {item}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Homepage />
+    </SiteShell>
+  );
 
       <section id="services" className="scroll-mt-28 mx-auto max-w-7xl px-6 py-8 lg:px-8">
         <div className="mb-8 flex items-end justify-between gap-4">
