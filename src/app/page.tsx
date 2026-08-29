@@ -15,22 +15,6 @@ const heroSlides = [
     cta: "Explore Kitchens",
     href: "#projects",
   },
-  {
-    title: "Statement Wardrobes",
-    subtitle: "designed for calm and indulgence",
-    description: "Refined wardrobes and walk-in storage that blend softness, symmetry, and premium finish.",
-    image: "/assets/images/hero-wardrobe.svg",
-    cta: "See Wardrobes",
-    href: "#services",
-  },
-  {
-    title: "CNC Workshop Precision",
-    subtitle: "where artistry meets engineering",
-    description: "Intricate jaali, decorative panels, and custom carved elements made with precision craftsmanship.",
-    image: "/assets/images/hero-cnc.svg",
-    cta: "Visit Workshop",
-    href: "#projects",
-  },
 ];
 
 const stats = [
@@ -123,7 +107,6 @@ const projects = [
       "/images/TIMBER%20KITCHEN/tim-19.jpg",
     ],
   },
-  { title: "Walk-in Wardrobe Suite", category: "Wardrobes", image: "/assets/images/project-wardrobe.svg" },
   { title: "CNC Jaali Feature Wall", category: "CNC", image: "/assets/images/project-cnc.svg" },
   {
     title: "Cafe Iranica",
