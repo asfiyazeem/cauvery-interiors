@@ -6,12 +6,9 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const navItems = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/#about" },
   { label: "Projects", href: "/#projects" },
   { label: "Services", href: "/#services" },
-  { label: "Reviews", href: "/#reviews" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "About", href: "/#about" },
   { label: "Contact", href: "/#contact" },
 ];
 
@@ -93,7 +90,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             <ul className="space-y-2 text-[#dbc8b5]">
               <li><a href="/#projects" className="hover:text-[#e8d5bb]">Projects</a></li>
               <li><a href="/#services" className="hover:text-[#e8d5bb]">Services</a></li>
-              <li><a href="/#faq" className="hover:text-[#e8d5bb]">FAQ</a></li>
+              <li><a href="/#about" className="hover:text-[#e8d5bb]">About</a></li>
             </ul>
           </div>
           <div>
