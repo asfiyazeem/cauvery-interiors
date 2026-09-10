@@ -67,55 +67,54 @@ const wardrobeSlides = [
 ];
 
 const cncSlides = [
-  "/images/cnc%20jali%20carving/cnc%20jali-1.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-10.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-11.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-12.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-13.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-14.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-15.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-16.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-17.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-18.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-19.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-2.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-20.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-21.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-22.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-23.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-24.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-25.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-26.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-3.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-4.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-5.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-6.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-7.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-8.jpg",
-  "/images/cnc%20jali%20carving/cnc%20jali-9.jpg",
-  "/images/cnc%20jali%20carving/pexels-ron-lach-10628197.jpg",
+  "/images/cnc jali carving/cnc jali-1.jpg",
+  "/images/cnc jali carving/cnc jali-10.jpg",
+  "/images/cnc jali carving/cnc jali-11.jpg",
+  "/images/cnc jali carving/cnc jali-12.jpg",
+  "/images/cnc jali carving/cnc jali-13.jpg",
+  "/images/cnc jali carving/cnc jali-14.jpg",
+  "/images/cnc jali carving/cnc jali-15.jpg",
+  "/images/cnc jali carving/cnc jali-16.jpg",
+  "/images/cnc jali carving/cnc jali-17.jpg",
+  "/images/cnc jali carving/cnc jali-18.jpg",
+  "/images/cnc jali carving/cnc jali-19.jpg",
+  "/images/cnc jali carving/cnc jali-2.jpg",
+  "/images/cnc jali carving/cnc jali-20.jpg",
+  "/images/cnc jali carving/cnc jali-21.jpg",
+  "/images/cnc jali carving/cnc jali-22.jpg",
+  "/images/cnc jali carving/cnc jali-23.jpg",
+  "/images/cnc jali carving/cnc jali-24.jpg",
+  "/images/cnc jali carving/cnc jali-25.jpg",
+  "/images/cnc jali carving/cnc jali-26.jpg",
+  "/images/cnc jali carving/cnc jali-3.jpg",
+  "/images/cnc jali carving/cnc jali-4.jpg",
+  "/images/cnc jali carving/cnc jali-5.jpg",
+  "/images/cnc jali carving/cnc jali-6.jpg",
+  "/images/cnc jali carving/cnc jali-7.jpg",
+  "/images/cnc jali carving/cnc jali-8.jpg",
+  "/images/cnc jali carving/cnc jali-9.jpg",
 ];
 
 const falseCeilingSlides = [
-  "/images/false%20ceiling/ceiling-1.jpg",
-  "/images/false%20ceiling/ceiling-2.jpg",
-  "/images/false%20ceiling/ceiling-3.jpg",
-  "/images/false%20ceiling/ceiling-4.jpg",
-  "/images/false%20ceiling/ceiling-5.jpg",
-  "/images/false%20ceiling/ceiling-6.jpg",
-  "/images/false%20ceiling/ceiling-7.jpg",
-  "/images/false%20ceiling/ceiling-8.jpg",
-  "/images/false%20ceiling/ceiling-9.jpg",
-  "/images/false%20ceiling/ceiling-10.jpg",
-  "/images/false%20ceiling/ceiling-11.jpg",
-  "/images/false%20ceiling/ceiling-12.jpg",
-  "/images/false%20ceiling/ceiling-13.jpg",
-  "/images/false%20ceiling/ceiling-14.jpg",
-  "/images/false%20ceiling/ceiling-15.jpg",
-  "/images/false%20ceiling/ceiling-16.jpg",
-  "/images/false%20ceiling/ceiling-17.jpg",
-  "/images/false%20ceiling/ceiling-18.jpg",
-  "/images/false%20ceiling/ceiling-19.jpg",
+  "/images/false ceiling/ceiling-1.jpg",
+  "/images/false ceiling/ceiling-2.jpg",
+  "/images/false ceiling/ceiling-3.jpg",
+  "/images/false ceiling/ceiling-4.jpg",
+  "/images/false ceiling/ceiling-5.jpg",
+  "/images/false ceiling/ceiling-6.jpg",
+  "/images/false ceiling/ceiling-7.jpg",
+  "/images/false ceiling/ceiling-8.jpg",
+  "/images/false ceiling/ceiling-9.jpg",
+  "/images/false ceiling/ceiling-10.jpg",
+  "/images/false ceiling/ceiling-11.jpg",
+  "/images/false ceiling/ceiling-12.jpg",
+  "/images/false ceiling/ceiling-13.jpg",
+  "/images/false ceiling/ceiling-14.jpg",
+  "/images/false ceiling/ceiling-15.jpg",
+  "/images/false ceiling/ceiling-16.jpg",
+  "/images/false ceiling/ceiling-17.jpg",
+  "/images/false ceiling/ceiling-18.jpg",
+  "/images/false ceiling/ceiling-19.jpg",
 ];
 
 export function generateStaticParams() {
@@ -138,7 +137,10 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         <Link href="/services" className="text-sm text-[#d8b56a]">← Back to services</Link>
         <div className="mt-8 rounded-[2rem] border border-white/10 bg-[linear-gradient(135deg,rgba(184,148,74,0.16),rgba(255,255,255,0.03))] p-8 lg:p-12">
           <p className="text-sm uppercase tracking-[0.4em] text-[#d8b56a]">Signature Service</p>
-          <h1 className="mt-4 text-4xl font-semibold text-white sm:text-5xl">{service.title}</h1>
+          <div className="relative mt-6 aspect-[16/9] overflow-hidden rounded-[1.5rem] border border-white/15">
+            <Image src={slides[0]} alt={`${service.title} real project photograph`} fill priority className="object-cover" sizes="(min-width: 1024px) 90vw, 100vw" />
+          </div>
+          <h1 className="mt-8 text-4xl font-semibold text-white sm:text-5xl">{service.title}</h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-stone-300">{service.hero}</p>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-stone-400">{service.body}</p>
 
