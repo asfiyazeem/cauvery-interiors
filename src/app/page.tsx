@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SiteShell } from "@/components/site-shell";
-import Homepage from "@/components/homepage";
 
 const heroSlides = [
   {
@@ -183,7 +182,13 @@ function ServiceCard({ title, description, href, previewSlides }: { title: strin
   }, [isVisible, previewSlides.length]);
 
   return (
-    <Link href={href} className="group overflow-hidden rounded-[1.75rem] border border-[#cdb59a]/30 bg-[#f7efe4] shadow-sm transition hover:-translate-y-1">
+    <motion.div
+      whileHover={{ y: -8, rotateX: 2, rotateY: title === "CNC Jaali & Carving" ? -2 : 2 }}
+      transition={{ type: "spring", stiffness: 240, damping: 20 }}
+      style={{ transformPerspective: 900 }}
+      className="group overflow-hidden rounded-[1.75rem] border border-[#cdb59a]/30 bg-[#f7efe4] shadow-sm"
+    >
+      <Link href={href} className="block">
       <div ref={cardRef} className="relative aspect-[16/10] overflow-hidden rounded-[1.75rem] bg-[#e8dfd2]">
         <AnimatePresence mode="wait">
           <motion.div
@@ -198,7 +203,7 @@ function ServiceCard({ title, description, href, previewSlides }: { title: strin
               src={previewSlides[activeIndex]}
               alt={`${title} preview ${activeIndex + 1}`}
               fill
-              className="object-cover"
+              className="object-cover transition duration-700 group-hover:scale-105"
               sizes="(min-width: 1024px) 33vw, 100vw"
             />
           </motion.div>
@@ -218,7 +223,8 @@ function ServiceCard({ title, description, href, previewSlides }: { title: strin
         <p className="mt-3 text-[#675b50]">{description}</p>
         <span className="mt-6 inline-flex text-sm font-medium text-[#8d6b4e] group-hover:translate-x-1 transition">Explore service →</span>
       </div>
-    </Link>
+      </Link>
+    </motion.div>
   );
 }
 
@@ -305,10 +311,6 @@ export default function Home() {
 
   return (
     <SiteShell>
-      <Homepage />
-    </SiteShell>
-  );
-
       <section id="services" className="scroll-mt-28 mx-auto max-w-7xl px-6 py-8 lg:px-8">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
