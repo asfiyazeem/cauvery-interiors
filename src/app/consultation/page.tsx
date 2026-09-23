@@ -6,15 +6,33 @@ import { SiteShell } from "@/components/site-shell";
 export default function ConsultationPage() {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", moreInfo: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const subject = encodeURIComponent(`Consultation Request from ${formData.name}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nMore Info: ${formData.moreInfo}`,
-    );
-    window.location.href = `mailto:hello@cauveryinteriors.com?subject=${subject}&body=${body}`;
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitted(false);
+    setSubmitError("");
+
+    try {
+      const response = await fetch("https://formspree.io/f/xyezjkvd", {
+        method: "POST",
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Form submission failed");
+      }
+
+      setSubmitted(true);
+      setFormData({ name: "", email: "", phone: "", moreInfo: "" });
+    } catch {
+      setSubmitError("We could not send your request. Please try again or contact us directly.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -69,7 +87,7 @@ export default function ConsultationPage() {
                 value={formData.phone}
                 onChange={(event) => setFormData((prev) => ({ ...prev, phone: event.target.value }))}
                 className="w-full rounded-2xl border border-[#cdb59a]/30 bg-white px-4 py-3 text-[#2f2a22] outline-none"
-                placeholder="+91 98800 00000"
+                placeholder="+91 86186 34719"
                 required
               />
             </div>
@@ -86,16 +104,18 @@ export default function ConsultationPage() {
 
             <button
               type="submit"
-              className="rounded-full bg-[#8d6b4e] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+              disabled={submitting}
+              className="rounded-full bg-[#8d6b4e] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Submit Request
+              {submitting ? "Sending..." : "Submit Request"}
             </button>
 
             {submitted && (
               <p className="text-sm text-[#8d6b4e]">
-                Thank you. Your email app will open with your consultation request details.
+                Thank you. Your consultation request has been sent.
               </p>
             )}
+            {submitError && <p className="text-sm text-red-700">{submitError}</p>}
           </form>
         </div>
       </section>

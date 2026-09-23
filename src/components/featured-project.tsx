@@ -20,7 +20,9 @@ export default function FeaturedProject() {
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="relative overflow-hidden rounded-[1.25rem] border border-[#e6d9c8]">
           <div className="aspect-[4/3] relative">
-            <Image src={images[0]} alt="Cafe Iranica hero" fill className="object-cover" />
+            <a href={images[0]} target="_blank" rel="noreferrer" className="block h-full w-full cursor-zoom-in">
+              <Image src={images[0]} alt="Cafe Iranica hero" fill className="object-cover" />
+            </a>
           </div>
         </div>
 
@@ -28,7 +30,9 @@ export default function FeaturedProject() {
           {images.slice(1).map((src, i) => (
             <div key={i} className="relative overflow-hidden rounded-[0.9rem] border border-[#e6d9c8]">
               <div className="aspect-[4/3] relative">
-                <Image src={src} alt={`Cafe Iranica ${i + 2}`} fill className="object-cover" />
+                <a href={src} target="_blank" rel="noreferrer" className="block h-full w-full cursor-zoom-in">
+                  <Image src={src} alt={`Cafe Iranica ${i + 2}`} fill className="object-cover" />
+                </a>
               </div>
             </div>
           ))}

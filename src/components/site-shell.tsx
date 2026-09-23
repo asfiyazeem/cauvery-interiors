@@ -103,8 +103,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           <div>
             <p className="mb-3 font-semibold">Connect</p>
             <div className="flex flex-wrap gap-4 text-[#dbc8b5]">
-              <a href="https://wa.me/919880000000" className="hover:text-[#e8d5bb]">WhatsApp</a>
-              <a href="tel:+919880000000" className="hover:text-[#e8d5bb]">Call</a>
+              <a href="https://wa.me/918618634719" className="hover:text-[#e8d5bb]">WhatsApp</a>
+              <a href="tel:+918618634719" className="hover:text-[#e8d5bb]">Call</a>
               <a href="/#contact" className="hover:text-[#e8d5bb]">Visit</a>
             </div>
           </div>
@@ -120,7 +120,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       </button>
 
       <motion.a
-        href="https://wa.me/919880000000"
+        href="https://wa.me/918618634719"
         whileHover={{ y: -3, scale: 1.02 }}
         className="fixed bottom-24 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl"
         aria-label="Contact on WhatsApp"
@@ -131,7 +131,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         </svg>
       </motion.a>
       <motion.a
-        href="tel:+919880000000"
+        href="tel:+918618634719"
         whileHover={{ y: -3, scale: 1.02 }}
         className="fixed bottom-6 right-6 z-50 rounded-full border border-[#8d6b4e]/40 bg-[#f7efe4] px-4 py-3 text-sm font-semibold text-[#4d3920] shadow-2xl"
       >

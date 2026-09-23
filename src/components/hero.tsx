@@ -22,7 +22,9 @@ export default function Hero() {
 
           <div className="relative rounded-[1.25rem] overflow-hidden border border-[#e6d9c8] bg-[#f8f3ee]">
             <div className="aspect-[4/3] relative h-full w-full">
-              <Image src="/images/cafe-iranica/cafe-iranica-2.jpg" alt="Cafe Iranica interior" fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
+              <a href="/images/cafe-iranica/cafe-iranica-2.jpg" target="_blank" rel="noreferrer" className="block h-full w-full cursor-zoom-in">
+                <Image src="/images/cafe-iranica/cafe-iranica-2.jpg" alt="Cafe Iranica interior" fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
+              </a>
             </div>
           </div>
         </div>

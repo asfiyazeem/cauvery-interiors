@@ -7,8 +7,8 @@ export default function ContactBlock() {
           <h2 className="mt-4 text-3xl font-semibold text-[#2f2a22]">Cauvery Interiors</h2>
           <div className="mt-6 text-[#675b50]">
             <p><strong>Location:</strong> Bengaluru, Karnataka</p>
-            <p><strong>Phone:</strong> <a href="tel:+919880000000" className="text-[#2f2a22]">+91 98800 00000</a></p>
-            <p><strong>Email:</strong> <a href="mailto:hello@cauveryinteriors.com" className="text-[#2f2a22]">hello@cauveryinteriors.com</a></p>
+            <p><strong>Phone:</strong> <a href="tel:+918618634719" className="text-[#2f2a22]">+91 86186 34719</a></p>
+            <p><strong>Email:</strong> <a href="mailto:cauveryinterior@gmail.com" className="text-[#2f2a22]">cauveryinterior@gmail.com</a></p>
           </div>
         </div>
         <div className="rounded-[1rem] overflow-hidden border border-[#e6d9c8]">

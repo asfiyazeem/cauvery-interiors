@@ -150,7 +150,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 {slides.map((image, index) => (
                   <div key={image} className="rounded-[1.5rem] border border-white/10 bg-black/20 p-2">
                     <div className="relative aspect-[4/5] overflow-hidden rounded-[1.25rem]">
-                      <Image src={image} alt={`${service.title} project ${index + 1}`} fill className="object-cover" />
+                      <a href={image} target="_blank" rel="noreferrer" className="block h-full w-full cursor-zoom-in">
+                        <Image src={image} alt={`${service.title} project ${index + 1}`} fill className="object-cover" />
+                      </a>
                     </div>
                   </div>
                 ))}

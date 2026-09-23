@@ -16,15 +16,17 @@ export default function ProjectsGrid() {
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((p) => (
-          <a key={p.id} href="#" className="group relative block overflow-hidden rounded-[1rem]">
+          <div key={p.id} className="group relative block overflow-hidden rounded-[1rem]">
             <div className="relative aspect-[4/3]">
-              <Image src={p.image} alt={p.title} fill className="object-cover transition-transform group-hover:scale-105" />
+              <a href={p.image} target="_blank" rel="noreferrer" className="block h-full w-full cursor-zoom-in">
+                <Image src={p.image} alt={p.title} fill className="object-cover transition-transform group-hover:scale-105" />
+              </a>
             </div>
             <div className="mt-3">
               <p className="text-xs uppercase tracking-widest text-[#8d6b4e]">{p.category}</p>
               <h3 className="mt-2 text-lg font-semibold text-[#2f2a22]">{p.title}</h3>
             </div>
-          </a>
+          </div>
         ))}
       </div>
     </section>

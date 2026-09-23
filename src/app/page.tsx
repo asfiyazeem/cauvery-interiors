@@ -228,6 +228,56 @@ function ServiceCard({ title, description, href, previewSlides }: { title: strin
   );
 }
 
+function ProjectSlider({ project }: { project: (typeof projects)[number] }) {
+  const images = project.gallery ?? [project.image];
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const showPrevious = () => setActiveIndex((index) => (index - 1 + images.length) % images.length);
+  const showNext = () => setActiveIndex((index) => (index + 1) % images.length);
+
+  return (
+    <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-[#e8dfd2]" style={{ perspective: "1000px" }}>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={images[activeIndex]}
+          initial={{ opacity: 0, rotateY: 8, scale: 0.97 }}
+          animate={{ opacity: 1, rotateY: 0, scale: 1 }}
+          exit={{ opacity: 0, rotateY: -8, scale: 1.03 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
+          className="absolute inset-0"
+          style={{ transformOrigin: "center" }}
+        >
+          <a href={images[activeIndex]} target="_blank" rel="noreferrer" className="relative block h-full w-full cursor-zoom-in">
+            <Image src={images[activeIndex]} alt={`${project.title} photograph ${activeIndex + 1}`} fill className="object-cover" sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw" />
+          </a>
+        </motion.div>
+      </AnimatePresence>
+
+      {images.length > 1 && (
+        <>
+          <button type="button" onClick={showPrevious} aria-label={`Previous ${project.title} photograph`} className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/45 px-3 py-2 text-lg text-white backdrop-blur-sm transition hover:bg-black/65">
+            ←
+          </button>
+          <button type="button" onClick={showNext} aria-label={`Next ${project.title} photograph`} className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/45 px-3 py-2 text-lg text-white backdrop-blur-sm transition hover:bg-black/65">
+            →
+          </button>
+          <div className="absolute bottom-3 left-1/2 z-10 flex max-w-[80%] -translate-x-1/2 gap-1.5 overflow-hidden rounded-full bg-black/35 px-2 py-1 backdrop-blur-sm">
+            {images.map((image, index) => (
+              <button
+                type="button"
+                key={image}
+                onClick={() => setActiveIndex(index)}
+                aria-label={`Show ${project.title} photograph ${index + 1}`}
+                className={`h-1.5 rounded-full transition-all ${index === activeIndex ? "w-6 bg-white" : "w-1.5 bg-white/55"}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [activeCategory, setActiveCategory] = useState<(typeof projectCategories)[number]>("All");
@@ -235,6 +285,8 @@ export default function Home() {
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [formState, setFormState] = useState({ name: "", phone: "", email: "", project: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const heroSectionRef = useRef<HTMLElement | null>(null);
   const scrollTimeoutRef = useRef<number | null>(null);
 
@@ -301,12 +353,35 @@ export default function Home() {
     return projects.filter((project) => project.category === activeCategory);
   }, [activeCategory]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const subject = encodeURIComponent(`Interior Inquiry from ${formState.name}`);
-    const body = encodeURIComponent(`Name: ${formState.name}\nPhone: ${formState.phone}\nEmail: ${formState.email}\nProject: ${formState.project}`);
-    window.location.href = `mailto:hello@cauveryinteriors.com?subject=${subject}&body=${body}`;
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitted(false);
+    setSubmitError("");
+
+    try {
+      const response = await fetch("https://formspree.io/f/xyezjkvd", {
+        method: "POST",
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formState.name,
+          phone: formState.phone,
+          email: formState.email,
+          project: formState.project,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Form submission failed");
+      }
+
+      setSubmitted(true);
+      setFormState({ name: "", phone: "", email: "", project: "" });
+    } catch {
+      setSubmitError("We could not send your inquiry. Please try again or contact us directly.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -342,19 +417,7 @@ export default function Home() {
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {filteredProjects.map((project) => (
             <motion.div key={project.title} whileHover={{ y: -6, scale: 1.01 }} className="overflow-hidden rounded-[1.5rem] border border-[#cdb59a]/30 bg-[#f7efe4] shadow-sm">
-              {project.gallery ? (
-                <div className="grid grid-cols-2 gap-1">
-                  {project.gallery.map((image, index) => (
-                    <div key={`${project.title}-${index}`} className="relative aspect-square">
-                      <Image src={image} alt={`${project.title} gallery ${index + 1}`} fill className="object-cover" />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="relative aspect-[4/5]">
-                  <Image src={project.image} alt={project.title} fill className="object-cover" />
-                </div>
-              )}
+              <ProjectSlider project={project} />
               <div className="p-5">
                 <p className="text-sm uppercase tracking-[0.3em] text-[#8d6b4e]">{project.category}</p>
                 <h3 className="mt-2 text-xl font-semibold text-[#2f2a22]">{project.title}</h3>
@@ -372,14 +435,16 @@ export default function Home() {
             <p className="mt-5 text-lg leading-8 text-[#675b50]">Visit our curated showroom and working workshop to experience materials, finishes, and detailing before your project begins.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#contact" className="rounded-full bg-[#2f2a22] px-5 py-3 text-sm font-semibold text-[#f8efe5]">Book a Visit</a>
-              <a href="https://wa.me/919880000000" className="rounded-full border border-[#8d6b4e]/40 bg-white px-5 py-3 text-sm font-semibold text-[#4d3920]">WhatsApp Us</a>
+              <a href="https://wa.me/918618634719" className="rounded-full border border-[#8d6b4e]/40 bg-white px-5 py-3 text-sm font-semibold text-[#4d3920]">WhatsApp Us</a>
             </div>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             {galleryImages.map((item) => (
               <div key={item.title} className="overflow-hidden rounded-[1.5rem] border border-[#cdb59a]/30 bg-[#f7efe4] shadow-sm">
                 <div className="relative aspect-[4/5]">
-                  <Image src={item.image} alt={item.title} fill className="object-cover" />
+                  <a href={item.image} target="_blank" rel="noreferrer" className="block h-full w-full cursor-zoom-in">
+                    <Image src={item.image} alt={item.title} fill className="object-cover" />
+                  </a>
                 </div>
                 <div className="p-4 text-sm font-medium text-[#4f433c]">{item.title}</div>
               </div>
@@ -436,8 +501,8 @@ export default function Home() {
             <h2 className="mt-3 text-3xl font-semibold text-[#2f2a22]">Let’s create something exceptional together.</h2>
             <p className="mt-5 text-lg leading-8 text-[#675b50]">Visit our showroom in Banaswadi or HBR Layout, or request a consultation for your next interior project.</p>
             <div className="mt-8 space-y-3 text-[#4f433c]">
-              <p><span className="font-semibold text-[#2f2a22]">Phone:</span> +91 98800 00000</p>
-              <p><span className="font-semibold text-[#2f2a22]">Email:</span> hello@cauveryinteriors.com</p>
+              <p><span className="font-semibold text-[#2f2a22]">Phone:</span> +91 86186 34719</p>
+              <p><span className="font-semibold text-[#2f2a22]">Email:</span> cauveryinterior@gmail.com</p>
               <p><span className="font-semibold text-[#2f2a22]">Hours:</span> Mon–Sat • 10:00 AM – 8:00 PM</p>
             </div>
             <div className="mt-8 overflow-hidden rounded-[1.25rem] border border-[#cdb59a]/30">
@@ -458,8 +523,11 @@ export default function Home() {
               </div>
               <input value={formState.email} onChange={(event) => setFormState((prev) => ({ ...prev, email: event.target.value }))} className="w-full rounded-xl border border-[#cdb59a]/30 bg-white px-4 py-3 text-[#2f2a22] outline-none" placeholder="Email" required />
               <textarea value={formState.project} onChange={(event) => setFormState((prev) => ({ ...prev, project: event.target.value }))} className="min-h-32 w-full rounded-xl border border-[#cdb59a]/30 bg-white px-4 py-3 text-[#2f2a22] outline-none" placeholder="Tell us about your project" required />
-              <button className="rounded-full bg-[#8d6b4e] px-6 py-3 text-sm font-semibold text-white">Send Inquiry</button>
-              {submitted && <p className="text-sm text-[#8d6b4e]">Thank you. Your email app will open with your inquiry details.</p>}
+              <button type="submit" disabled={submitting} className="rounded-full bg-[#8d6b4e] px-6 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60">
+                {submitting ? "Sending..." : "Send Inquiry"}
+              </button>
+              {submitted && <p className="text-sm text-[#8d6b4e]">Thank you. Your inquiry has been sent.</p>}
+              {submitError && <p className="text-sm text-red-700">{submitError}</p>}
             </form>
           </div>
         </div>
