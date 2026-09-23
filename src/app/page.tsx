@@ -400,6 +400,28 @@ export default function Home() {
         </div>
       </section>
 
+      <section id="about" className="scroll-mt-28 mx-auto max-w-7xl px-6 py-20 lg:px-8">
+        <div className="rounded-[2rem] border border-[#cdb59a]/30 bg-[#f7efe4] p-8 shadow-sm lg:p-12">
+          <p className="text-sm uppercase tracking-[0.4em] text-[#8d6b4e]">About Us</p>
+          <h2 className="mt-3 text-3xl font-semibold text-[#2f2a22]">Built on wood. Built on trust.</h2>
+          <div className="mt-6 max-w-4xl space-y-5 text-lg leading-8 text-[#675b50]">
+            <p>
+              With a journey that began in the timber trade and a reputation built over decades, <strong className="font-semibold text-[#2f2a22]">Syed has been serving customers in Banaswadi since 1984</strong>. Before establishing his business in Banaswadi, he was associated with the timber trade at <strong className="font-semibold text-[#2f2a22]">City Market</strong>, gaining valuable experience and knowledge of wood and craftsmanship.
+            </p>
+            <p>
+              Since 1984, his work has been built on <strong className="font-semibold text-[#2f2a22]">honesty, quality, and keeping his word</strong>. From supplying raw timber and wood planks to crafting <strong className="font-semibold text-[#2f2a22]">beds, wardrobes, tables, sofas, and other wooden furniture</strong>, the business has grown through years of trust and customer relationships.
+            </p>
+            <p>
+              Today, Syed and his son continue this legacy together. From <strong className="font-semibold text-[#2f2a22]">custom wooden furniture and wood manufacturing to CNC jali, wood carving, and detailed woodwork</strong>, they bring traditional craftsmanship together with modern design.
+            </p>
+            <p>
+              Under <strong className="font-semibold text-[#2f2a22]">Cauvery Interiors</strong>, the journey has now expanded into complete interior solutions — from design and manufacturing to <strong className="font-semibold text-[#2f2a22]">complete project execution</strong>, handling every detail from start to finish.
+            </p>
+            <p className="font-semibold text-[#2f2a22]">Built on wood. Built on trust. Growing through generations.</p>
+          </div>
+        </div>
+      </section>
+
       <section id="projects" className="scroll-mt-28 mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
